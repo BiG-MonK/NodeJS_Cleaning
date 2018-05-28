@@ -1,0 +1,11 @@
+$ cat .gitignore
+locales/
+pnacl/
+swiftshader/
+credits.html
+*.dll
+*.dat
+*.nexe
+*.bin
+*.pak
+*.exe
