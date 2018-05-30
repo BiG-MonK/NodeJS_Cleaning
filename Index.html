@@ -1,15 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Мультибуфер</title>
 </head>
+
 <body>
-    <table border=1>
-        <tr>
-            <td>Первая строка -- Буфер</td>
-            <td>Вторая строка -- Время</td>
-        </tr>
+    <table width="100%" border=1>
+        <thead>
+            <tr>
+                <th>-- Буфер --</th>
+                <th>-- Время --</th>
+            </tr>
+        </thead>
+        <tbody class="data-time"></tbody>
     </table>
+
+    <script>
+        var gui = new require('nw.gui');
+        var text = '', myArray = [], cLipboard = '', per = 1;
+        Array.prototype.in_array = function (p_val) {
+            for (var i = 0, l = this.length; i < l; i++) {
+                if (this[i] == p_val) return true;
+            }
+            return false;
+        };
+
+        var id = setInterval(function () {
+            cLipboard = gui.Clipboard.get();
+            text = cLipboard.get();
+            if(!myArray.in_array(text.trim())){
+                console.log(text);
+                myArray.push(text.trim());
+            }
+        }, 1000);
+    </script>
 </body>
+
 </html>
