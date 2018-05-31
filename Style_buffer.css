@@ -1,0 +1,37 @@
+table {
+    width: 100%;
+    border-collapse: collapse;        
+}
+
+th {
+    border: 2px solid black;
+    text-align: center;
+}
+
+th:first-child {
+    width: 100px;
+}
+
+td {
+    border: 1px dashed black;
+    padding-left: 5px;
+    padding-right: 5px;
+    text-align: center;
+}
+
+.data-time tr td:last-child{
+    color: blue;
+}
+
+@keyframes font_size_up {
+    0% {font-size: 16px;}
+    50% {font-size: 20px;}
+    100% {font-size: 19px;}
+}
+
+.data-time tr td:last-child:hover {
+    color: rgba(92, 168, 15, 0.952);
+    animation-name: font_size_up;
+    animation-duration: 1.5s;
+    animation-fill-mode: both;
+}

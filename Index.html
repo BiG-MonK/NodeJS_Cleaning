@@ -4,51 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Мультибуфер</title>
+    <link href="Style_buffer.css" rel="stylesheet">
+    <script src="Script_buffer.js"></script>
 </head>
 
 <body>
-    <table width="100%" border=1>
+    <table>
         <thead>
             <tr>
-                <th width = 20%>-- Время --</th>
-                <th>-- Буфер --</th>
+                <th>Время</th>
+                <th>Буфер</th>
             </tr>
         </thead>
-        <tbody class="data-time"></tbody>
+        <tbody class="data-time">
+            
+        </tbody>
     </table>
-
-    <script>
-        var gui = new require('nw.gui');
-        var text = '', myArray = [], cLipboard = '', per = 1;
-        Array.prototype.in_array = function (p_val) {
-            for (var i = 0, l = this.length; i < l; i++) {
-                if (this[i] == p_val) return true;
-            }
-            return false;
-        };
-
-        function times() {
-            var date = new Date();
-            var H = date.getHours() < 10 ? "0" + date.getHours() : date.getHours(),
-                M = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes(),
-                S = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
-            return H + ' : ' + M + ' : ' + S;
-        };
-
-        var id = setInterval(function () {
-            cLipboard = gui.Clipboard.get();
-            text = cLipboard.get();
-            if (!myArray.in_array(text)) {
-                // if (text === '') {
-                    console.log(text);
-                    var time = times();
-                    myArray.push(text);
-                    var qwerty = document.querySelector('.data-time');
-                    qwerty.innerHTML = qwerty.innerHTML + '<tr><td>' + time + '</td><td>' + text + '</td></tr>';
-                // }
-            }
-        }, 1000);
-    </script>
 </body>
 
 </html>
