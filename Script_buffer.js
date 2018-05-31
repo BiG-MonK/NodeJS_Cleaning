@@ -1,15 +1,8 @@
 
 var gui = new require('nw.gui');
-var time, data_time, buffer_elem, buffer_text = '', myArray = [], cLipboard = '', per = 1;
-//--------- Сравнение вновь поступившего элемента в массив с уже имеющимися
-Array.prototype.in_array = function (p_val) {
-    for (var i = 0, l = this.length; i < l; i++) {
-        if (this[i] == p_val) return true;
-    }
-    return false;
-};
+var buffer_text = '', buffer_array = [], buffer_obj = '', top = 1;
 
-function times() {
+var Time = function() {
     var date = new Date();
     var H = date.getHours() < 10 ? "0" + date.getHours() : date.getHours(),
         M = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes(),
@@ -17,30 +10,40 @@ function times() {
     return H + ' : ' + M + ' : ' + S;
 };
 
+var Top_window = function(){                                //--------- Функция переключателя окна поверх всех окон
+    var win = gui.Window.get();
+    if (top === 0){
+        win.hide();
+        top++;
+    } else {
+        win.show();
+        win.setAlwaysOnTop(true);
+        top--;
+    }
+}//конец функции переключателя окна поверх всех окон
+Top_window();
+
 var id = setInterval(function () {
-    cLipboard = gui.Clipboard.get();
-    buffer_text = cLipboard.get();
-    if (!myArray.in_array(buffer_text)) {
-        // if (buffer_text === '') {
-        time = times();
-        data_time = document.querySelector('.data-time');
+    buffer_obj = gui.Clipboard.get();
+    buffer_text = buffer_obj.get();
+    if (!buffer_array.some(elem => elem == buffer_text)) {  //--------- Сравнение вновь поступившего элемента в массив с уже имеющимися
+        var data_time = document.querySelector('.data-time');
         var newTr = document.createElement('tr');
         var newTd = document.createElement('td');
         var newTd2 = document.createElement('td');
-        data_time.appendChild(newTr);
-        newTr.appendChild(newTd);
-        newTd.innerHTML = time;
-        newTr.appendChild(newTd2);
-        newTd2.innerHTML = buffer_text;
-        myArray.push(buffer_text);
-        buffer_elem = document.querySelectorAll('.data-time tr td:last-child');
-        for (var i = 0; i < buffer_elem.length; i++) {
+        data_time.appendChild(newTr);                       //--------- Создание элемента Tr в элементе Tbody
+        newTr.appendChild(newTd);                           //--------- Создание элемента Td в элементе Tr
+        newTd.innerHTML = Time();                           //--------- Заполнение ячейки времени
+        newTr.appendChild(newTd2);                          //--------- Создание второго элемента Td в том же элементе Tr
+        newTd2.innerHTML = buffer_text;                     //--------- Заполнение ячейки буфера
+        buffer_array.push(buffer_text);                     //--------- Увеличение массива буфера еще одним значением
+        var buffer_elem = document.querySelectorAll('.data-time tr td:last-child');
+        for (let i = 0; i < buffer_elem.length; i++) {      //--------- Навешивание событий на каждый элемент Td тот что содержит значение буфера
             buffer_elem[i].onclick = function () {
-                cLipboard.set(window.event.target.innerHTML, 'text');
+                buffer_obj.set(window.event.target.innerHTML, 'text');
                 //console.log(window.event.target.innerHTML);
                 return false;
-            };
-        }
-        // }
+            };//конец обработчика событий
+        }//конец цыкла навешивания обработчика событий
     }
 }, 1000);
