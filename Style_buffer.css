@@ -35,3 +35,12 @@ td {
     animation-duration: 1.5s;
     animation-fill-mode: both;
 }
+
+.clear-btn {
+    float: right;
+    width: 50%;
+    height: 20px;
+    background-color: rgb(108, 175, 206);
+    font-weight: bold;
+    margin-bottom: 10px;
+}

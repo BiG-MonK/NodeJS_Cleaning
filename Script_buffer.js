@@ -39,7 +39,11 @@ var shortcut = new gui.Shortcut({
 });
 gui.App.registerGlobalHotKey(shortcut);
 
-var id = setInterval(function () {
+// var id = setInterval(function () {
+    var qwerty = new gui.Shortcut({
+        key: "Ctrl+E", 
+        active: function() {
+            
     buffer_obj = gui.Clipboard.get();
     buffer_text = buffer_obj.get();
     if (!buffer_array.some(elem => elem === buffer_text)) {  //--------- Сравнение вновь поступившего элемента в массив с уже имеющимися
@@ -62,4 +66,15 @@ var id = setInterval(function () {
             };//конец обработчика событий
         }//конец цыкла навешивания обработчика событий
     }
-}, 1000);
+},
+failed: function(msg) {
+    console.log('Проблемма!!' + msg);
+}
+});
+gui.App.registerGlobalHotKey(qwerty);
+// }, 1000);
+
+var clear_btn = document.querySelector('.clear-btn button');       //--------- Навешивание события на кнопку очистки
+clear_btn.onclick = function () {
+    console.log("Нажата кнопка!");
+    };//конец обработчика событий
