@@ -1,6 +1,9 @@
 
 var gui = new require('nw.gui');
-var buffer_text = '', buffer_array = [], buffer_obj = '', top = 1;
+var buffer_text = '';
+var buffer_array = []; 
+var buffer_obj = '';
+var top_win = 1;
 
 var Time = function() {
     var date = new Date();
@@ -12,16 +15,29 @@ var Time = function() {
 
 var Top_window = function(){                                //--------- Функция переключателя окна поверх всех окон
     var win = gui.Window.get();
-    if (top === 0){
+    if (top_win === 0){
         win.hide();
-        top++;
+        //win.setAlwaysOnTop(false);
+        top_win++;
     } else {
         win.show();
         win.setAlwaysOnTop(true);
-        top--;
+        top_win--;
     }
 }//конец функции переключателя окна поверх всех окон
 Top_window();
+
+var shortcut = new gui.Shortcut({
+    key: "Ctrl+D", 
+    active: function() {
+        Top_window();
+        //console.log(top);
+    },
+    failed: function(msg) {
+        console.log('Проблемма!!' + msg);
+    }
+});
+gui.App.registerGlobalHotKey(shortcut);
 
 var id = setInterval(function () {
     buffer_obj = gui.Clipboard.get();
