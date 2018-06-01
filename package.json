@@ -5,6 +5,7 @@
     "version": "0.0.1",
     "window": {
         "width": 500,
-        "height": 700
+        "height": 700,
+        "position": "mouse"
     }
 }
