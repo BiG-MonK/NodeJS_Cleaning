@@ -41,7 +41,7 @@ var id = setInterval(function () {
     buffer_obj = gui.Clipboard.get();
     buffer_text = buffer_obj.get();
     if (!buffer_array.some(elem => elem === buffer_text)) {  //--------- Сравнение вновь поступившего элемента в массив с уже имеющимися
-        var data_time = document.querySelector('.data-time');
+        var data_time = document.querySelector('.table__data-time');
         var newTr = document.createElement('tr');
         var newTd = document.createElement('td');
         var newTd2 = document.createElement('td');
@@ -51,7 +51,7 @@ var id = setInterval(function () {
         newTr.appendChild(newTd2);                          //--------- Создание второго элемента Td в том же элементе Tr
         newTd2.textContent = buffer_text;                   //--------- Заполнение ячейки буфера
         buffer_array.push(buffer_text);                     //--------- Увеличение массива буфера еще одним значением
-        var buffer_elem = document.querySelectorAll('.data-time tr td:last-child');
+        var buffer_elem = document.querySelectorAll('.table__data-time tr td:last-child');
         for (let i = 0; i < buffer_elem.length; i++) {      //--------- Навешивание событий на каждый элемент Td тот что содержит значение буфера
             buffer_elem[i].onclick = function () {
                 buffer_obj.set(window.event.target.textContent, 'text');
@@ -62,7 +62,7 @@ var id = setInterval(function () {
     }
 }, 1000);
 
-// var clear_btn = document.querySelector('.clear_btn');        //--------- Навешивание события на кнопку очистки
-// //clear_btn.onclick = function () {
-//     console.log(clear_btn);
+// var btn__clear-screen = document.querySelector('.btn__clear-screen');        //--------- Навешивание события на кнопку очистки
+// //btn__clear-screen.onclick = function () {
+//     console.log(btn__clear-screen);
 // //};

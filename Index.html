@@ -4,23 +4,38 @@
 <head>
     <meta charset="UTF-8">
     <title>Мультибуфер</title>
-    <link href="Style_buffer.css" rel="stylesheet">
-    <script src="Script_buffer.js"></script>
+    <link href="index.css" rel="stylesheet">
+    <!-- <link href="Style_buffer.css" rel="stylesheet"> -->
+    <Script src="index.js"></Script>
+    <!-- <script src="Script_buffer.js"></script> -->
+    <!-- <script src="Script_clear.js"></script> -->
 </head>
 
 <body>
-    <button class="clear-btn">Очистить</button>
-    <table>
-        <thead>
-            <tr>
-                <th>Время</th>
-                <th>Буфер</th>
-            </tr>
-        </thead>
-        <tbody class="data-time"></tbody>
-    </table>
+    <div class="tabs">
+        <ul class="tab__controls">
+            <li class="tab__controls-item whiteborder">buffer</li>
+            <li class="tab__controls-item">clearing</li>
+        </ul>
+        <ul class="tab__content">
+            <li class="tab__content-item">
+                <button class="btn__clear-screen">Очистить</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Время</th>
+                            <th>Буфер</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table__data-time"></tbody>
+                </table>
+            </li>
+            <li class="tab__content-item"></li>
+        </ul>
+    </div>
+
     <script>
-        document.querySelector('.clear-btn').onclick = function () {
+        document.querySelector('.btn__clear-screen').onclick = function () {
             location.reload();
         };
     </script>

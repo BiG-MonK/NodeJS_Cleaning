@@ -19,7 +19,7 @@ td {
     text-align: center;
 }
 
-.data-time tr td:last-child{
+.table__data-time tr td:last-child{
     color: blue;
 }
 
@@ -29,14 +29,14 @@ td {
     100% {font-size: 19px;}
 }
 
-.data-time tr td:last-child:hover {
+.table__data-time tr td:last-child:hover {
     color: rgba(92, 168, 15, 0.952);
     animation-name: font_size_up;
     animation-duration: 1.5s;
     animation-fill-mode: both;
 }
 
-.clear-btn {
+.btn__clear-screen {
     /* float: right; */
     width: 80%;
     height: 20px;
