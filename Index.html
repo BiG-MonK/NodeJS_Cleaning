@@ -5,20 +5,20 @@
     <meta charset="UTF-8">
     <title>Мультибуфер</title>
     <link href="index.css" rel="stylesheet">
-    <!-- <link href="Style_buffer.css" rel="stylesheet"> -->
-    <Script src="index.js"></Script>
-    <!-- <script src="Script_buffer.js"></script> -->
+    <link href="Style_buffer.css" rel="stylesheet">
+    <!-- <Script src="index.js"></Script> -->
+    <script src="Script_buffer.js"></script>
     <!-- <script src="Script_clear.js"></script> -->
 </head>
 
 <body>
     <div class="tabs">
         <ul class="tab__controls">
-            <li class="tab__controls-item active">buffer</li>
+            <li class="tab__controls-item">buffer</li>
             <li class="tab__controls-item">clearing</li>
         </ul>
         <ul class="tab__content">
-            <li class="tab__content-item">
+            <li class="tab__content-item buffer show">
                 <button class="btn__clear-screen">Очистить</button>
                 <table>
                     <thead>
@@ -30,13 +30,29 @@
                     <tbody class="table__data-time"></tbody>
                 </table>
             </li>
-            <li class="tab__content-item"></li>
+            <li class="tab__content-item clear hide">
+                <h2>Программа чистки СЕРВЕРА</h2>
+            </li>
         </ul>
     </div>
 
     <script>
+        var tab__buffer;
+        var tab__clear;
         document.querySelector('.btn__clear-screen').onclick = function () {
             location.reload();
+        };
+        tab__buffer = document.querySelector('.buffer');
+        tab__clear = document.querySelector('.clear');
+        tab__clear.onclick = function () {
+            tab__buffer.classList.remove('show');
+            tab__buffer.classList.add('hide');
+            tab__clear.classList.add('show');
+        };
+        tab__buffer.onclick = function () {
+            tab__clear.classList.remove('show');
+            tab__clear.classList.add('hide');
+            tab__buffer.classList.add('show');
         };
     </script>
 </body>

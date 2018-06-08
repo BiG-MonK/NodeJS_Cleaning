@@ -18,6 +18,9 @@
     padding: 10px;
     border-radius: 0 0 3px 3px;
 }
+.tabs .tab__controls-item:hover{
+    background-color: aquamarine;
+}
 .tabs .hide{
     display: none;
 }
