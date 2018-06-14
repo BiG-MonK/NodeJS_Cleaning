@@ -4,7 +4,7 @@
     "description": "Мультибуфер",
     "version": "0.0.1",
     "window": {
-        "width": 500,
+        "width": 400,
         "height": 700,
         "position": "mouse"
     }

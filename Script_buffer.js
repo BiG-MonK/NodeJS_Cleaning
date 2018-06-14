@@ -4,7 +4,7 @@ var buffer_text = '';
 var buffer_array = [];
 var buffer_obj = '';
 var top_win = 1;
-
+//------------------------------------------------------------------------------------------------------------------------------------------
 var Time = function () {
     var date = new Date();
     var H = date.getHours() < 10 ? "0" + date.getHours() : date.getHours(),
@@ -12,7 +12,7 @@ var Time = function () {
         S = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
     return H + ' : ' + M + ' : ' + S;
 };
-
+//------------------------------------------------------------------------------------------------------------------------------------------
 var Top_window = function () {                                //--------- Функция переключателя окна поверх всех окон
     var win = gui.Window.get();
     if (top_win === 0) {
@@ -25,7 +25,7 @@ var Top_window = function () {                                //--------- Фун
     }
 }//конец функции переключателя окна поверх всех окон
 Top_window();
-
+//------------------------------------------------------------------------------------------------------------------------------------------
 var shortcut = new gui.Shortcut({
     key: "Ctrl+D",
     active: function () {
@@ -36,7 +36,7 @@ var shortcut = new gui.Shortcut({
     }
 });
 gui.App.registerGlobalHotKey(shortcut);
-
+//------------------------------------------------------------------------------------------------------------------------------------------
 var id = setInterval(function () {
     buffer_obj = gui.Clipboard.get();
     buffer_text = buffer_obj.get();
@@ -61,8 +61,3 @@ var id = setInterval(function () {
         }//конец цыкла навешивания обработчика событий
     }
 }, 1000);
-
-// var btn__clear-screen = document.querySelector('.btn__clear-screen');        //--------- Навешивание события на кнопку очистки
-// //btn__clear-screen.onclick = function () {
-//     console.log(btn__clear-screen);
-// //};
