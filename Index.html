@@ -6,8 +6,10 @@
     <title>Мультибуфер</title>
     <link href="index.css" rel="stylesheet">
     <link href="Style_buffer.css" rel="stylesheet">
+    <link href="Style_clear.css" rel="stylesheet">
     <script src="Script_buffer.js"></script>
     <script src="Script_clear.js"></script>
+    <script src="Index.js"></script>
 </head>
 
 <body>
@@ -30,39 +32,24 @@
                 </table>
             </li>
             <li class="tab__content-item clear hide">
-                <div>
-                    <h3>Программа чистки СЕРВЕРА</h3>
+                <div class="div__data-main">
+                    <h3>Программа чистки профилей RDP пользователей</h3>
+                    <button class="btn__get-users">Получить данные</button>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Кол-во ненужных папок</th>
+                                <th>Кол-во ненужных файлов</th>
+                                <th>Размер мусора</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table__dir-f-size"></tbody>
+                    </table>
                 </div>
             </li>
         </ul>
     </div>
-
-    <script>
-        var tab__buffer;
-        var tab__clear;
-        var win = gui.Window.get();
-        document.querySelector('.btn__clear-screen').onclick = function () {
-            location.reload();
-        };
-        tab__buffer = document.querySelector('.tab__controls-item:first-child');
-        tab__clear = document.querySelector('.tab__controls-item:last-child');
-        tab__clear.onclick = function () {
-            win.width = 900;
-            win.height = 127;
-            win.position = 'center';
-            document.querySelector('.buffer').classList.remove('show');
-            document.querySelector('.buffer').classList.add('hide');
-            document.querySelector('.clear').classList.add('show');
-        };
-        tab__buffer.onclick = function () {
-            win.width = 400;
-            win.height = 700;
-            win.position = 'center';
-            document.querySelector('.clear').classList.remove('show');
-            document.querySelector('.clear').classList.add('hide');
-            document.querySelector('.buffer').classList.add('show');
-        };
-    </script>
 </body>
 
 </html>

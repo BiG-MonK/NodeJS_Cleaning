@@ -1,7 +1,6 @@
 const fs = require('fs');
 var arr_files = [];
 var arr_dir = [];
-// var path = './test';
 var size_all_files = 0;
 var user_list = [];
 const user_list_non = [
@@ -14,17 +13,20 @@ const user_list_non = [
 
 var time = performance.now();                         //--- Засекает время выполнения программы
 //------------------------------------------------------------------------------------------------------------------------------------------
-get_user_list = function (path_dir){//--- Функция наполнения массива списком пользователей
+get_user_list = function (path_dir) {//--- Функция наполнения массива списком пользователей
   user_list = fs.readdirSync(path_dir);
   var count = 0;
-  user_list.forEach(function(arr_item){
-    if (user_list_non.some(function(x){ return (x == arr_item); })){
-      user_list[count] = '';
-      // console.log(arr_item);
+  user_list.forEach(function (arr_item) {
+    if (fs.statSync(path_dir + '/' + arr_item).isFile()) {   //--- Если в списке юзеров попался файл, а не папка профиля, то
+      user_list[count] = '';                                 //--- Удаляем этот элемент массива с общего списка профилей юзеров
+    } else {
+      if (user_list_non.some(function (x) { return (x == arr_item); })) {//--- Если совпадает со списком исключения, то
+        user_list[count] = '';                                           //--- Удаляем этот элемент массива с общего списка профилей юзеров
+      }
     }
     count++;
   })
-  user_list = user_list.filter(function(x){ return (x != ''); });
+  user_list = user_list.filter(function (x) { return (x != ''); });
   return user_list;
 }//--- Конец функции наполнения массива списком
 //------------------------------------------------------------------------------------------------------------------------------------------
@@ -43,7 +45,7 @@ list_dir = function (path_dir) {//--- Рекуривная функция про
         arr_dir.push(path_dir + '/' + content_dir[i]);  //--- Выписываем в отдельный массив папок полный путь папки
         list_dir(cur_path);                             //--- Если папка то рекурсивный вызов
       }
-    };
+    }
   } catch (err) {                                       //--- Если не пройдена проверка на доступ
     if (fs.statSync(path_dir).isFile()) {
       console.error(path_dir + ' -- File no access!!');
@@ -51,7 +53,7 @@ list_dir = function (path_dir) {//--- Рекуривная функция про
       console.error(path_dir + ' -- Dir no access!!');
     }
   }
-};//--- Конец рекурсивной функции просмотра папки
+}//--- Конец рекурсивной функции просмотра папки
 //------------------------------------------------------------------------------------------------------------------------------------------
 delete_dir = function () {//--- Функция удаления файлов и папок
   for (let i = 0; i < arr_files.length; i++) {        //--- Прогон списка через цикл
@@ -67,26 +69,15 @@ delete_dir = function () {//--- Функция удаления файлов и 
     }
   }
   while (arr_dir.length != 0);                        //--- Пока не закончится массив папок продолжаем перебирать и удалять пустые папки
-};//--- Конец функции удаления файлов и папок
+}//--- Конец функции удаления файлов и папок
 //------------------------------------------------------------------------------------------------------------------------------------------
 // list_dir(path);
-// list_dir('c:/Users');
-get_user_list('./test/').forEach(function(x){
-  list_dir('./test/' + x);
-  console.log('./test/' + x);
-  console.log('Всего папок в этой папке: ' + arr_dir.length);
-  console.log('Всего файлов в этой папке: ' + arr_files.length);
-  console.log('Размер всех файлов равен: ' + (size_all_files / 1024 / 1024).toFixed(4) + ' Mb');
-  arr_dir = [];
-  arr_files = [];
-  size_all_files = 0;
-});
-
+// list_dir('c:/users');
 // console.log('Всего папок в этой папке: ' + arr_dir.length);
 // console.log(arr_dir);
 // console.log('Всего файлов в этой папке: ' + arr_files.length);
 // console.log('Размер всех файлов равен: ' + (size_all_files / 1024 / 1024).toFixed(4) + ' Mb');
-// delete_dir();
+// // delete_dir();
 time = performance.now() - time;
 console.log('Время выполнения программы = ', time, 'msec');
 

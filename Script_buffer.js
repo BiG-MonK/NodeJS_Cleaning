@@ -1,4 +1,3 @@
-
 var gui = new require('nw.gui');
 var buffer_text = '';
 var buffer_array = [];
@@ -13,7 +12,7 @@ var Time = function () {
     return H + ' : ' + M + ' : ' + S;
 };
 //------------------------------------------------------------------------------------------------------------------------------------------
-var Top_window = function () {                                //--------- Функция переключателя окна поверх всех окон
+var Top_window = function () { //--------- Функция переключателя окна поверх всех окон
     var win = gui.Window.get();
     if (top_win === 0) {
         win.hide();
@@ -23,10 +22,10 @@ var Top_window = function () {                                //--------- Фун
         win.setAlwaysOnTop(true);
         top_win--;
     }
-}//конец функции переключателя окна поверх всех окон
+} //конец функции переключателя окна поверх всех окон
 Top_window();
 //------------------------------------------------------------------------------------------------------------------------------------------
-var shortcut = new gui.Shortcut({
+var shortcut_turn = new gui.Shortcut({
     key: "Ctrl+D",
     active: function () {
         Top_window();
@@ -35,29 +34,31 @@ var shortcut = new gui.Shortcut({
         console.log('Проблемма!!' + msg);
     }
 });
-gui.App.registerGlobalHotKey(shortcut);
+gui.App.registerGlobalHotKey(shortcut_turn);
 //------------------------------------------------------------------------------------------------------------------------------------------
 var id = setInterval(function () {
+    var win = gui.Window.get();
     buffer_obj = gui.Clipboard.get();
     buffer_text = buffer_obj.get();
-    if (!buffer_array.some(elem => elem === buffer_text)) {  //--------- Сравнение вновь поступившего элемента в массив с уже имеющимися
+    if (!buffer_array.some(elem => elem === buffer_text)) { //--------- Сравнение вновь поступившего элемента в массив с уже имеющимися
         var data_time = document.querySelector('.table__data-time');
         var newTr = document.createElement('tr');
         var newTd = document.createElement('td');
         var newTd2 = document.createElement('td');
-        data_time.appendChild(newTr);                       //--------- Создание элемента Tr в элементе Tbody
-        newTr.appendChild(newTd);                           //--------- Создание элемента Td в элементе Tr
-        newTd.textContent = Time();                         //--------- Заполнение ячейки времени
-        newTr.appendChild(newTd2);                          //--------- Создание второго элемента Td в том же элементе Tr
-        newTd2.textContent = buffer_text;                   //--------- Заполнение ячейки буфера
-        buffer_array.push(buffer_text);                     //--------- Увеличение массива буфера еще одним значением
+        data_time.appendChild(newTr); //--------- Создание элемента Tr в элементе Tbody
+        newTr.appendChild(newTd); //--------- Создание элемента Td в элементе Tr
+        newTd.textContent = Time(); //--------- Заполнение ячейки времени
+        newTr.appendChild(newTd2); //--------- Создание второго элемента Td в том же элементе Tr
+        newTd2.textContent = buffer_text; //--------- Заполнение ячейки буфера
+        buffer_array.push(buffer_text); //--------- Увеличение массива буфера еще одним значением
         var buffer_elem = document.querySelectorAll('.table__data-time tr td:last-child');
-        for (let i = 0; i < buffer_elem.length; i++) {      //--------- Навешивание событий на каждый элемент Td тот что содержит значение буфера
+        for (let i = 0; i < buffer_elem.length; i++) { //--------- Навешивание событий на каждый элемент Td тот что содержит значение буфера
             buffer_elem[i].onclick = function () {
                 buffer_obj.set(window.event.target.textContent, 'text');
                 //console.log(window.event.target.textContent);
                 return false;
-            };//конец обработчика событий
-        }//конец цыкла навешивания обработчика событий
+            }; //конец обработчика событий
+        } //конец цыкла навешивания обработчика событий
     }
+    // win.resizeTo(400, document.querySelector('.table__data-time').offsetHeight + 160);
 }, 1000);
