@@ -11,18 +11,19 @@ const user_list_non = [
   'defaultuser0',
   'Все пользователи'
 ];
+
 const path_clean = [
   // c:/Windows/Temp/
-  '/Downloads',
-  '/AppData/Local/Temp',
-  '/AppData/Local/1C/1Cv82',
-  '/AppData/Local/Microsoft/Windows/WebCache',
-  '/AppData/Local/Opera Software/Opera Stable/Cache',
-  '/AppData/Local/Microsoft/Windows/WER/ReportQueue',
-  '/AppData/Local/Opera Software/Opera Stable/Media Cache',
-  '/AppData/Local/Microsoft/Windows/INetCache/Content.Outlook',
-  '/AppData/Roaming/Opera Software/Opera Stable/Local Storage',
-  '/AppData/Roaming/Opera Software/Opera Stable/Application Cache/Cache'
+  {'dir': '/Downloads', 'size': 0},
+  {'dir': '/AppData/Local/Temp', 'size': 0},
+  {'dir': '/AppData/Local/1C/1Cv82', 'size': 0},
+  {'dir': '/AppData/Local/Microsoft/Windows/WebCache', 'size': 0},
+  {'dir': '/AppData/Local/Opera Software/Opera Stable/Cache', 'size': 0},
+  {'dir': '/AppData/Local/Microsoft/Windows/WER/ReportQueue', 'size': 0},
+  {'dir': '/AppData/Local/Opera Software/Opera Stable/Media Cache', 'size': 0},
+  {'dir': '/AppData/Local/Microsoft/Windows/INetCache/Content.Outlook', 'size': 0},
+  {'dir': '/AppData/Roaming/Opera Software/Opera Stable/Local Storage', 'size': 0},
+  {'dir': '/AppData/Roaming/Opera Software/Opera Stable/Application Cache/Cache', 'size': 0}
 ];
 
 var time = performance.now(); //--- Засекает время выполнения программы
@@ -54,7 +55,6 @@ list_dir = function (path_dir) { //--- Рекуривная функция пр�
   try {
     fs.statSync(path_dir);
   } catch (err) {
-    // console.error(err);
     console.error(path_dir + ' -- File not exists!!');
     return;
   };
@@ -96,7 +96,7 @@ delete_dir = function () { //--- Функция удаления файлов и
   while (arr_dir.length != 0); //--- Пока не закончится массив папок продолжаем перебирать и удалять пустые папки
 } //--- Конец функции удаления файлов и папок
 //------------------------------------------------------------------------------------------------------------------------------------------
-// list_dir(path);
+// list_dir(dir);
 // list_dir('c:/users');
 // console.log('Всего папок в этой папке: ' + arr_dir.length);
 // console.log(arr_dir);

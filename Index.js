@@ -30,27 +30,25 @@ window.onload = function () {
         var path_size_all_user = 0;
         var size_f_user = 0;
         get_user_list('c:/Users').forEach(function (user) {
-            for (let i = 0; i < path_clean.length; i++) {
-            // path_clean.forEach(function (path) {
-
-                list_dir('c:/Users/' + user + path_clean[i]);
+            path_clean.forEach(function (path) {
+                list_dir('c:/Users/' + user + path.dir);
                 size_f_user += size_all_files;
-                // var path_f_size = document.querySelector('.table__path-f-size');
-                // var newTr = document.createElement('tr');
-                // var newTd = document.createElement('td');
-                // var newTd2 = document.createElement('td');
-                // var newTd3 = document.createElement('td');
-                // path_f_size.appendChild(newTr);
-                // newTr.appendChild(newTd);
-                // newTd.textContent = path;
-                // newTr.appendChild(newTd2);
-                // newTd2.textContent = arr_files.length;
-                // newTr.appendChild(newTd3);
-                // newTd3.textContent = (size_all_files / 1024 / 1024).toFixed(4) + ' Mb';
-                // arr_files = [];
-                // size_all_files = 0;
-            // });
-            }
+                path.size = size_all_files + path.size;
+                var path_f_size = document.querySelector('.table__path-f-size');
+                var newTr = document.createElement('tr');
+                var newTd = document.createElement('td');
+                var newTd2 = document.createElement('td');
+                var newTd3 = document.createElement('td');
+                path_f_size.appendChild(newTr);
+                newTr.appendChild(newTd);
+                newTd.textContent = path.dir;
+                newTr.appendChild(newTd2);
+                newTd2.textContent = arr_files.length;
+                newTr.appendChild(newTd3);
+                newTd3.textContent = (path.size / 1024 / 1024).toFixed(4) + ' Mb';
+                arr_files = [];
+                size_all_files = 0;
+            });
             var dir_f_size = document.querySelector('.table__dir-f-size');
             var newTr = document.createElement('tr');
             var newTd = document.createElement('td');
@@ -65,7 +63,7 @@ window.onload = function () {
             newTr.appendChild(newTd3);
             newTd3.textContent = arr_files.length;
             newTr.appendChild(newTd4);
-            newTd4.textContent = (size_all_files / 1024 / 1024).toFixed(4) + ' Mb';
+            newTd4.textContent = (size_f_user / 1024 / 1024).toFixed(4) + ' Mb';
             arr_dir = [];
             arr_files = [];
             size_all_files = 0;
