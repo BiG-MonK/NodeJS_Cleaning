@@ -1,0 +1,5 @@
+[0619/022710.157:WARNING:minidump_to_upload_parameters.cc(66)] duplicate annotation name metrics_client_id, discarding value 83424d49414f4e5fa94c424a8894a6dc
+[0619/022710.195:ERROR:http_transport_win.cc(175)] WinHttpCrackUrl: URL-адрес не использует поддерживаемый протокол (0x2ee6)
+[0619/032655.598:ERROR:process_reader_win.cc(242)] ReadMemory at 0x17acd930000 of 384 bytes failed: Запрос ReadProcessMemory или WriteProcessMemory был выполнен только частично. (0x12B)
+[0619/032655.598:ERROR:crash_report_exception_handler.cc(111)] WriteEverything failed
+[0619/032655.598:ERROR:filesystem_win.cc(148)] DeleteFile C:\Users\'SS'MonK\AppData\Local\MultiBuffer\User Data\Crashpad\reports\35195813-5128-47c3-833f-5f24dce11187.dmp: Процесс не может получить доступ к файлу, так как этот файл занят другим процессом. (0x20)

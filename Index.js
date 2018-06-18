@@ -4,6 +4,7 @@ window.onload = function () {
     var win = gui.Window.get();
     tab__buffer = document.querySelector('.tab__controls-item:first-child');
     tab__clear = document.querySelector('.tab__controls-item:last-child');
+    btn__getData = document.querySelector('.btn__get-data');
 
     tab__buffer.onclick = function () {
         win.width = 400;
@@ -25,9 +26,31 @@ window.onload = function () {
         win.position = 'center';
     };
 
-    document.querySelector('.btn__get-users').onclick = function () {
-        get_user_list('d:/GitHub/').forEach(function (x) {
-            list_dir('d:/GitHub/' + x);
+    btn__getData.onclick = function () {
+        var path_size_all_user = 0;
+        var size_f_user = 0;
+        get_user_list('c:/Users').forEach(function (user) {
+            for (let i = 0; i < path_clean.length; i++) {
+            // path_clean.forEach(function (path) {
+
+                list_dir('c:/Users/' + user + path_clean[i]);
+                size_f_user += size_all_files;
+                // var path_f_size = document.querySelector('.table__path-f-size');
+                // var newTr = document.createElement('tr');
+                // var newTd = document.createElement('td');
+                // var newTd2 = document.createElement('td');
+                // var newTd3 = document.createElement('td');
+                // path_f_size.appendChild(newTr);
+                // newTr.appendChild(newTd);
+                // newTd.textContent = path;
+                // newTr.appendChild(newTd2);
+                // newTd2.textContent = arr_files.length;
+                // newTr.appendChild(newTd3);
+                // newTd3.textContent = (size_all_files / 1024 / 1024).toFixed(4) + ' Mb';
+                // arr_files = [];
+                // size_all_files = 0;
+            // });
+            }
             var dir_f_size = document.querySelector('.table__dir-f-size');
             var newTr = document.createElement('tr');
             var newTd = document.createElement('td');
@@ -36,7 +59,7 @@ window.onload = function () {
             var newTd4 = document.createElement('td');
             dir_f_size.appendChild(newTr);
             newTr.appendChild(newTd);
-            newTd.textContent = x;
+            newTd.textContent = user;
             newTr.appendChild(newTd2);
             newTd2.textContent = arr_dir.length;
             newTr.appendChild(newTd3);
