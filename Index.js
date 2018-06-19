@@ -6,7 +6,7 @@ window.onload = function () {
     tab__clear = document.querySelector('.tab__controls-item:last-child');
     btn__getData = document.querySelector('.btn__get-data');
 
-    tab__buffer.onclick = function () {
+    tab__buffer.onclick = function () {                                 //--- Событие по нажатию на ТАБ buffer
         win.width = 400;
         win.height = 500;
         win.position = 'center';
@@ -16,7 +16,7 @@ window.onload = function () {
         document.querySelector('.buffer').classList.remove('hide');
     };
 
-    tab__clear.onclick = function () {
+    tab__clear.onclick = function () {                                  //--- Событие по нажатию на ТАБ clearing
         document.querySelector('.buffer').classList.remove('show');
         document.querySelector('.buffer').classList.add('hide');
         document.querySelector('.clear').classList.add('show');
@@ -26,29 +26,18 @@ window.onload = function () {
         win.position = 'center';
     };
 
-    btn__getData.onclick = function () {
-        var path_size_all_user = 0;
-        var size_f_user = 0;
-        get_user_list('c:/Users').forEach(function (user) {
-            path_clean.forEach(function (path) {
-                list_dir('c:/Users/' + user + path.dir);
-                size_f_user += size_all_files;
-                path.size = size_all_files + path.size;
-                var path_f_size = document.querySelector('.table__path-f-size');
-                var newTr = document.createElement('tr');
-                var newTd = document.createElement('td');
-                var newTd2 = document.createElement('td');
-                var newTd3 = document.createElement('td');
-                path_f_size.appendChild(newTr);
-                newTr.appendChild(newTd);
-                newTd.textContent = path.dir;
-                newTr.appendChild(newTd2);
-                newTd2.textContent = arr_files.length;
-                newTr.appendChild(newTd3);
-                newTd3.textContent = (path.size / 1024 / 1024).toFixed(4) + ' Mb';
-                arr_files = [];
-                size_all_files = 0;
+    btn__getData.onclick = function () {                                //--- Событие по нажатию на кнопку -получить данные-
+        get_user_list('c:/Users').forEach(function (user) {             //--- Действие над каждым элементом массива всех юзеров
+            path_clean.forEach(function (path) {                        //--- Действие над каждым элементом массива всех путей для чистки
+                list_dir('c:/Users/' + user + path.dir);                //--- Проход по каждой дирректории и получение данных о кол-ве и размере файлов
+                path.size += size_all_files;
+                path.size_of_user += size_all_files;
+                path.count_files += arr_files.length;
+                path.count_files_of_user += arr_files.length;
+                arr_files = [];                             //--- Обнуление для чистоты расчета кол-ва файлов по следующему пути
+                size_all_files = 0;                         //--- Обнуление для чистоты расчета суммарного размера всех файлов по следующему пути
             });
+            var initialValue = 0;
             var dir_f_size = document.querySelector('.table__dir-f-size');
             var newTr = document.createElement('tr');
             var newTd = document.createElement('td');
@@ -61,17 +50,37 @@ window.onload = function () {
             newTr.appendChild(newTd2);
             newTd2.textContent = arr_dir.length;
             newTr.appendChild(newTd3);
-            newTd3.textContent = arr_files.length;
+            newTd3.textContent = path_clean.reduce(function (accumulator, currentValue) { //--- Суммирование всех значений count_files_of_user массива path_clean
+                return accumulator + currentValue.count_files_of_user;
+            }, initialValue);
+            path_clean.forEach(function (path) { path.count_files_of_user = 0; }); //--- Обнуление у всех путей счетчика числа файлов, для другого юзера
             newTr.appendChild(newTd4);
-            newTd4.textContent = (size_f_user / 1024 / 1024).toFixed(4) + ' Mb';
+            newTd4.textContent = (path_clean.reduce(function (accumulator, currentValue) { //--- Суммирование всех значений size_of_user массива path_clean
+                return accumulator + currentValue.size_of_user;                     
+            }, initialValue) / 1024 / 1024).toFixed(4) + ' Mb';
+            path_clean.forEach(function (path) { path.size_of_user = 0; });       //--- Обнуление у всех путей счетчика размера файлов, для другого юзера
             arr_dir = [];
             arr_files = [];
             size_all_files = 0;
         }); //--- Конец цепочки функции на отображения данных папок юзеров
-        win.resizeTo(900, document.querySelector('.tab__content-item.clear').offsetHeight + 70);
+        path_clean.forEach(function (path) {                                      //--- Вывод в таблицу суммарных данных по всем юзерам по каждому пути
+            var path_f_size = document.querySelector('.table__path-f-size');
+            var newTr = document.createElement('tr');
+            var newTd = document.createElement('td');
+            var newTd2 = document.createElement('td');
+            var newTd3 = document.createElement('td');
+            path_f_size.appendChild(newTr);
+            newTr.appendChild(newTd);
+            newTd.textContent = path.dir;                                         //--- Вывод самого пути
+            newTr.appendChild(newTd2);
+            newTd2.textContent = path.count_files;                                //--- Вывод общего счетчика файлов со всех юзеров по одному пути
+            newTr.appendChild(newTd3);
+            newTd3.textContent = (path.size / 1024 / 1024).toFixed(4) + ' Mb';    //--- Вывод общего размера файлов со всех юзеров по одному пути
+        });
+        win.resizeTo(900, document.querySelector('.tab__content-item.clear').offsetHeight + 70); //--- Установаить высоту окна, относительно высоты заполняемой таблицы
     };
 
-    document.querySelector('.btn__clear-screen').onclick = function () {
+    document.querySelector('.btn__clear-screen').onclick = function () {           //--- Событие на кнопку - очистка окна
         location.reload();
     };
 }

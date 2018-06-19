@@ -4,26 +4,32 @@ var arr_dir = [];
 var size_all_files = 0;
 var user_list = [];
 const user_list_non = [
+  '.NET v4.5',
+  '.NET v4.5 Classic',
+  'All Users',
   'Default',
   'Default User',
-  'desktop.ini',
+  'MSSQL$MICROSOFT##WID',
+  'MSSQLSERVER',
   'Public',
-  'defaultuser0',
+  'SQLSERVERAGENT',
+  'USR1CV82',
+  'usr1cv82.TMI',
   'Все пользователи'
 ];
 
 const path_clean = [
   // c:/Windows/Temp/
-  {'dir': '/Downloads', 'size': 0},
-  {'dir': '/AppData/Local/Temp', 'size': 0},
-  {'dir': '/AppData/Local/1C/1Cv82', 'size': 0},
-  {'dir': '/AppData/Local/Microsoft/Windows/WebCache', 'size': 0},
-  {'dir': '/AppData/Local/Opera Software/Opera Stable/Cache', 'size': 0},
-  {'dir': '/AppData/Local/Microsoft/Windows/WER/ReportQueue', 'size': 0},
-  {'dir': '/AppData/Local/Opera Software/Opera Stable/Media Cache', 'size': 0},
-  {'dir': '/AppData/Local/Microsoft/Windows/INetCache/Content.Outlook', 'size': 0},
-  {'dir': '/AppData/Roaming/Opera Software/Opera Stable/Local Storage', 'size': 0},
-  {'dir': '/AppData/Roaming/Opera Software/Opera Stable/Application Cache/Cache', 'size': 0}
+  {'dir': '/Downloads', 'size': 0, 'size_of_user': 0, 'count_files': 0, 'count_files_of_user': 0},
+  {'dir': '/AppData/Local/Temp', 'size': 0, 'size_of_user': 0, 'count_files': 0, 'count_files_of_user': 0},
+  {'dir': '/AppData/Local/1C/1Cv82', 'size': 0, 'size_of_user': 0, 'count_files': 0, 'count_files_of_user': 0},
+  {'dir': '/AppData/Local/Microsoft/Windows/WebCache', 'size': 0, 'size_of_user': 0, 'count_files': 0, 'count_files_of_user': 0},
+  {'dir': '/AppData/Local/Opera Software/Opera Stable/Cache', 'size': 0, 'size_of_user': 0, 'count_files': 0, 'count_files_of_user': 0},
+  {'dir': '/AppData/Local/Microsoft/Windows/WER/ReportQueue', 'size': 0, 'size_of_user': 0, 'count_files': 0, 'count_files_of_user': 0},
+  {'dir': '/AppData/Local/Opera Software/Opera Stable/Media Cache', 'size': 0, 'size_of_user': 0, 'count_files': 0, 'count_files_of_user': 0},
+  {'dir': '/AppData/Local/Microsoft/Windows/INetCache/Content.Outlook', 'size': 0, 'size_of_user': 0, 'count_files': 0, 'count_files_of_user': 0},
+  {'dir': '/AppData/Roaming/Opera Software/Opera Stable/Local Storage', 'size': 0, 'size_of_user': 0, 'count_files': 0, 'count_files_of_user': 0},
+  {'dir': '/AppData/Roaming/Opera Software/Opera Stable/Application Cache/Cache', 'size': 0, 'size_of_user': 0, 'count_files': 0, 'count_files_of_user': 0}
 ];
 
 var time = performance.now(); //--- Засекает время выполнения программы
