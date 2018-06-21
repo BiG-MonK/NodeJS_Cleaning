@@ -14,12 +14,12 @@
 
 <body>
     <div class="tabs">
-        <ul class="tab__controls">
+        <ul class="tab__controls">  <!-- Табы -->
             <li class="tab__controls-item">buffer</li>
             <li class="tab__controls-item">clearing</li>
         </ul>
         <ul class="tab__content">
-            <li class="tab__content-item buffer show">
+            <li class="tab__content-item buffer show">  <!-- Окно Буффера обмена -->
                 <button class="btn__clear-screen">Очистить</button>
                 <table>
                     <thead>
@@ -31,11 +31,11 @@
                     <tbody class="table__data-time"></tbody>
                 </table>
             </li>
-            <li class="tab__content-item clear hide">
+            <li class="tab__content-item clear hide">   <!-- Окно Чистки профилей -->
                 <div class="div__data-main">
                     <h3>Программа чистки профилей RDP пользователей</h3>
                     <button class="btn__get-data">Получить данные</button>
-                    <table class="table__path-f-size">
+                    <table class="table__path-f-size">  <!-- Таблица всех путей очистки -->
                         <thead>
                             <tr>
                                 <th>Path</th>
@@ -45,7 +45,18 @@
                         </thead>
                         <tbody class="tbody__path-f-size"></tbody>
                     </table>
-                    <table>
+                    <hr>
+                    <table>                             <!-- Таблица путей требующих настройку по времени -->
+                            <thead>
+                                <tr>
+                                    <th>Path</th>
+                                    <th>Кол-во ненужных файлов</th>
+                                    <th>Размер мусора</th>
+                                </tr>
+                            </thead>
+                            <tbody class="tbody__path-f-size-time"></tbody>
+                        </table>
+                    <table>                             <!-- Таблица вывода данных по каждому юзеру -->
                         <thead>
                             <tr>
                                 <th>User</th>
@@ -54,7 +65,7 @@
                                 <th>Размер мусора</th>
                             </tr>
                         </thead>
-                        <tbody class="table__dir-f-size"></tbody>
+                        <tbody class="tbody__user-dir-f-size"></tbody>
                     </table>
                 </div>
             </li>
