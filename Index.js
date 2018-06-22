@@ -38,7 +38,7 @@ window.onload = function () {
                 size_all_files = 0;                         //--- Обнуление для чистоты расчета суммарного размера всех файлов по следующему пути
             });
             var initialValue = 0;
-            var dir_f_size = document.querySelector('.table__dir-f-size');
+            var dir_f_size = document.querySelector('.tbody__user-dir-f-size');
             var newTr = document.createElement('tr');
             var newTd = document.createElement('td');
             var newTd2 = document.createElement('td');
@@ -64,7 +64,7 @@ window.onload = function () {
             size_all_files = 0;
         }); //--- Конец цепочки функции на отображения данных папок юзеров
         path_clean.forEach(function (path) {                                      //--- Вывод в таблицу суммарных данных по всем юзерам по каждому пути
-            var path_f_size = document.querySelector('.tbody__user-dir-f-size');
+            var path_f_size = document.querySelector('.tbody__path-f-size');
             var newTr = document.createElement('tr');
             var newTd = document.createElement('td');
             var newTd2 = document.createElement('td');
