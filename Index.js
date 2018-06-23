@@ -1,3 +1,4 @@
+
 window.onload = function () {
     var tab__buffer;
     var tab__clear;
@@ -5,6 +6,9 @@ window.onload = function () {
     tab__buffer = document.querySelector('.tab__controls-item:first-child');
     tab__clear = document.querySelector('.tab__controls-item:last-child');
     btn__getData = document.querySelector('.btn__get-data');
+    btn__getDownloads = document.querySelector('.btn__get-downloads');
+    checkb_downloads = document.querySelector('#downloads-field');
+    checkb_scan = document.querySelector('#scan-field');
 
     tab__buffer.onclick = function () {                                 //--- Событие по нажатию на ТАБ buffer
         win.width = 400;
@@ -24,6 +28,13 @@ window.onload = function () {
         win.width = 900;
         win.height = document.querySelector('.tab__content-item.clear').offsetHeight + 70;
         win.position = 'center';
+    };
+
+    btn__getDownloads.onclick = function () {  
+        var time_filter = document.querySelector('.select__downloads').value;
+        if (checkb_downloads.checked){
+            console.log(get_date_files(time_filter, "d:/test"));
+        }
     };
 
     btn__getData.onclick = function () {                                //--- Событие по нажатию на кнопку -получить данные-

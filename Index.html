@@ -14,12 +14,14 @@
 
 <body>
     <div class="tabs">
-        <ul class="tab__controls">  <!-- Табы -->
+        <ul class="tab__controls">
+            <!-- Табы -->
             <li class="tab__controls-item">buffer</li>
             <li class="tab__controls-item">clearing</li>
         </ul>
         <ul class="tab__content">
-            <li class="tab__content-item buffer show">  <!-- Окно Буффера обмена -->
+            <li class="tab__content-item buffer show">
+                <!-- Окно Буффера обмена -->
                 <button class="btn__clear-screen">Очистить</button>
                 <table>
                     <thead>
@@ -31,11 +33,41 @@
                     <tbody class="table__data-time"></tbody>
                 </table>
             </li>
-            <li class="tab__content-item clear hide">   <!-- Окно Чистки профилей -->
+            <li class="tab__content-item clear hide">
+                <!-- Окно Чистки профилей -->
                 <div class="div__data-main">
                     <h3>Программа чистки профилей RDP пользователей</h3>
                     <button class="btn__get-data">Получить данные</button>
-                    <table class="table__path-f-size">  <!-- Таблица всех путей очистки -->
+                    <!-- .................................................... -->
+                    <div>
+                        <input type="checkbox" name="downloads" id="downloads-field">
+                        <label for="downloads-field">Какой свежести файлы оставлять для DOWNLOADS:</label>
+                        <select class="select__downloads">
+                            <option value="2592000000">1 месяц</option>
+                            <option value="5184000000">2 месяца</option>
+                            <option value="7259200000">3 месяца</option>
+                            <option value="10368000000">4 месяца</option>
+                            <option value="12960000000">5 месяцев</option>
+                            <option value="15552000000">6 месяцев</option>
+                        </select>
+                        <button class="btn__get-downloads">Получить данные</button>
+
+                        <br>
+                        <input type="checkbox" name="scan" id="scan-field">
+                        <label for="scan-field">Какой свежести файлы оставлять для SCAN:</label>
+                        <select class="select__scan">
+                            <option value="86400000">1 день</option>
+                            <option value="7259200000">3 дня</option>
+                            <option value="604800000">1 неделя</option>
+                            <option value="2592000000">1 месяц</option>
+                            <option value="7776000000" selected>3 месяца</option>
+                            <option value="15552000000">6 месяцев</option>
+                        </select>
+                        <button class="btn__get-scan">Получить данные</button>
+                        <!-- .................................................... -->
+                    </div>
+                    <!-- Таблица всех путей очистки -->
+                    <table class="table__path-f-size">
                         <thead>
                             <tr>
                                 <th>Path</th>
@@ -45,17 +77,8 @@
                         </thead>
                         <tbody class="tbody__path-f-size"></tbody>
                     </table>
-                     <table>                             <!-- Таблица путей требующих настройку по времени -->
-                            <thead>
-                                <tr>
-                                    <th>Path</th>
-                                    <th>Кол-во ненужных файлов</th>
-                                    <th>Размер мусора</th>
-                                </tr>
-                            </thead>
-                            <tbody class="tbody__path-f-size-time"></tbody>
-                        </table>
-                    <table>                             <!-- Таблица вывода данных по каждому юзеру -->
+                    <!-- Таблица вывода данных по каждому юзеру -->
+                    <table>
                         <thead>
                             <tr>
                                 <th>User</th>

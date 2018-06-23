@@ -17,22 +17,90 @@ const user_list_non = [
   'usr1cv82.TMI',
   'Все пользователи'
 ];
+var time_now = new Date();
+const one_month = 2592000000;
+const two_month = 5184000000;
+const three_month = 7259200000;
+const four_month = 10368000000;
+const five_month = 12960000000;
+const six_month = 15552000000;
+const one_day = 86400000;
 
-const path_clean = [
+var path_clean = [
   // c:/Windows/Temp/
-  {'dir': '/Downloads', 'size': 0, 'size_of_user': 0, 'count_files': 0, 'count_files_of_user': 0},
-  {'dir': '/AppData/Local/Temp', 'size': 0, 'size_of_user': 0, 'count_files': 0, 'count_files_of_user': 0},
-  {'dir': '/AppData/Local/1C/1Cv82', 'size': 0, 'size_of_user': 0, 'count_files': 0, 'count_files_of_user': 0},
-  {'dir': '/AppData/Local/Microsoft/Windows/WebCache', 'size': 0, 'size_of_user': 0, 'count_files': 0, 'count_files_of_user': 0},
-  {'dir': '/AppData/Local/Opera Software/Opera Stable/Cache', 'size': 0, 'size_of_user': 0, 'count_files': 0, 'count_files_of_user': 0},
-  {'dir': '/AppData/Local/Microsoft/Windows/WER/ReportQueue', 'size': 0, 'size_of_user': 0, 'count_files': 0, 'count_files_of_user': 0},
-  {'dir': '/AppData/Local/Opera Software/Opera Stable/Media Cache', 'size': 0, 'size_of_user': 0, 'count_files': 0, 'count_files_of_user': 0},
-  {'dir': '/AppData/Local/Microsoft/Windows/INetCache/Content.Outlook', 'size': 0, 'size_of_user': 0, 'count_files': 0, 'count_files_of_user': 0},
-  {'dir': '/AppData/Roaming/Opera Software/Opera Stable/Local Storage', 'size': 0, 'size_of_user': 0, 'count_files': 0, 'count_files_of_user': 0},
-  {'dir': '/AppData/Roaming/Opera Software/Opera Stable/Application Cache/Cache', 'size': 0, 'size_of_user': 0, 'count_files': 0, 'count_files_of_user': 0}
+  // {
+  //   'dir': '/Downloads',
+  //   'size': 0,
+  //   'size_of_user': 0,
+  //   'count_files': 0,
+  //   'count_files_of_user': 0
+  // },
+  {
+    'dir': '/AppData/Local/Temp',
+    'size': 0,
+    'size_of_user': 0,
+    'count_files': 0,
+    'count_files_of_user': 0
+  },
+  {
+    'dir': '/AppData/Local/1C/1Cv82',
+    'size': 0,
+    'size_of_user': 0,
+    'count_files': 0,
+    'count_files_of_user': 0
+  },
+  {
+    'dir': '/AppData/Local/Microsoft/Windows/WebCache',
+    'size': 0,
+    'size_of_user': 0,
+    'count_files': 0,
+    'count_files_of_user': 0
+  },
+  {
+    'dir': '/AppData/Local/Opera Software/Opera Stable/Cache',
+    'size': 0,
+    'size_of_user': 0,
+    'count_files': 0,
+    'count_files_of_user': 0
+  },
+  {
+    'dir': '/AppData/Local/Microsoft/Windows/WER/ReportQueue',
+    'size': 0,
+    'size_of_user': 0,
+    'count_files': 0,
+    'count_files_of_user': 0
+  },
+  {
+    'dir': '/AppData/Local/Opera Software/Opera Stable/Media Cache',
+    'size': 0,
+    'size_of_user': 0,
+    'count_files': 0,
+    'count_files_of_user': 0
+  },
+  {
+    'dir': '/AppData/Local/Microsoft/Windows/INetCache/Content.Outlook',
+    'size': 0,
+    'size_of_user': 0,
+    'count_files': 0,
+    'count_files_of_user': 0
+  },
+  {
+    'dir': '/AppData/Roaming/Opera Software/Opera Stable/Local Storage',
+    'size': 0,
+    'size_of_user': 0,
+    'count_files': 0,
+    'count_files_of_user': 0
+  },
+  {
+    'dir': '/AppData/Roaming/Opera Software/Opera Stable/Application Cache/Cache',
+    'size': 0,
+    'size_of_user': 0,
+    'count_files': 0,
+    'count_files_of_user': 0
+  }
 ];
 
-var time = performance.now(); //--- Засекает время выполнения программы
+var time_work = performance.now(); //--- Засекает время выполнения программы
 //------------------------------------------------------------------------------------------------------------------------------------------
 get_user_list = function (path_dir) { //--- Функция наполнения массива списком пользователей с учетом списка исключений
   user_list = fs.readdirSync(path_dir);
@@ -49,7 +117,7 @@ get_user_list = function (path_dir) { //--- Функция наполнения 
     }
     count++;
   })
-  user_list = user_list.filter(function (x) {
+  user_list = user_list.filter(function (x) { //--- Удалнггый эл-т оставляет пустое место, удаляем и его из массива юзеров
     return (x != '');
   });
   return user_list;
@@ -85,6 +153,20 @@ list_dir = function (path_dir) { //--- Рекуривная функция пр�
     }
   }
 }; //--- Конец рекурсивной функции просмотра папки
+var arr_data_files = [];
+//------------------------------------------------------------------------------------------------------------------------------------------
+get_date_files = function (time_filter, path) { //--- Рекуривная функция-выборка файлов по фильтру даты
+  arr_data_files.length = 0;
+  arr_files.length = 0;
+  list_dir(path);
+  arr_files.forEach(function (file) {
+    var date_file = fs.statSync(file).ctime;
+    if (time_now.getTime() > Number(date_file.getTime()) + Number(time_filter)) {
+      arr_data_files.push(file);
+    }
+  });
+  return arr_data_files;
+}; //--- Конец рекуривной функции-выборки файлов по фильтру даты
 //------------------------------------------------------------------------------------------------------------------------------------------
 delete_dir = function () { //--- Функция удаления файлов и папок
   for (let i = 0; i < arr_files.length; i++) { //--- Прогон списка через цикл
@@ -109,5 +191,5 @@ delete_dir = function () { //--- Функция удаления файлов и
 // console.log('Всего файлов в этой папке: ' + arr_files.length);
 // console.log('Размер всех файлов равен: ' + (size_all_files / 1024 / 1024).toFixed(4) + ' Mb');
 // // delete_dir();
-time = performance.now() - time;
-console.log('Время выполнения программы = ', time, 'msec');
+time_work = performance.now() - time_work;
+console.log('Время выполнения программы = ', time_work, 'msec');
