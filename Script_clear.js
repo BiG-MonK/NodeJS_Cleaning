@@ -160,7 +160,7 @@ get_date_files = function (time_filter, path) { //--- Рекуривная фу�
   arr_files.length = 0;
   list_dir(path);
   arr_files.forEach(function (file) {
-    var date_file = fs.statSync(file).ctime;
+    var date_file = fs.statSync(file).atime;
     if (time_now.getTime() > Number(date_file.getTime()) + Number(time_filter)) {
       arr_data_files.push(file);
     }
